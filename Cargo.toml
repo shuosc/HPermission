@@ -1,0 +1,17 @@
+[package]
+name = "hpermission"
+version = "0.1.0"
+authors = ["longfangsong <longfangsong@icloud.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+actix = "0.9.0"
+actix-web = "2.0.0"
+actix-http = "1.0.1"
+actix-rt = "1.1.1"
+snmalloc-rs = "0.2.18"
+futures = "0.3.5"
+bytes = "0.5.6"
+tokio-postgres = { git = "https://github.com/fafhrd91/rust-postgres.git" }
