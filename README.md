@@ -1,2 +1,2 @@
 # HPermission
-[Planning] A high performance authentication gateway
+[WIP] A high performance authentication gateway
