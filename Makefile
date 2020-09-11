@@ -14,7 +14,7 @@ format: pre-format
 	cargo fmt --all
 
 test:
-	echo "No tests now, please add some!"
+	echo "No tests now, please add some!!!"
 
 dev: format clippy
 	make test
