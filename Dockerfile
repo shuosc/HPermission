@@ -1,10 +1,10 @@
-FROM rust:alpine AS builder
+FROM rust AS builder
 COPY . /HPermission
 WORKDIR /HPermission
-RUN apk add musl-dev
+RUN apt update && apt install -y cmake make gcc g++
 RUN cargo build --release
 
-FROM alpine
+FROM debian
 MAINTAINER longfangsong@icloud.com
 COPY --from=builder /HPermission/target/release/hpermission /
 WORKDIR /

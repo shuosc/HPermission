@@ -12,3 +12,4 @@ Cargo.lock
 .idea
 /data/
 logfile
+.DS_Store
