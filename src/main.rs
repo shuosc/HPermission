@@ -18,5 +18,5 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .route("/ping", web::get().to(ping))
             .default_service(web::route().to(check))
-    }).bind("0.0.0.0:8000")?.run().await
+    }).bind("0.0.0.0:80")?.run().await
 }
