@@ -19,8 +19,10 @@ pub async fn check(request: HttpRequest) -> impl Responder {
     };
     let passed = CONFIG.check(username.as_ref(), request.path(), request.query_string(), write);
     if passed {
+        info!("Allow {} to visit {}", username.unwrap_or("anonymous user".to_string()), request.path());
         HttpResponse::Ok()
     } else {
+        info!("Disallow {} to visit {}", username.unwrap_or("anonymous user".to_string()), request.path());
         HttpResponse::Unauthorized()
     }
 }

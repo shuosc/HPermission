@@ -1,4 +1,6 @@
 #[macro_use]
+extern crate log;
+#[macro_use]
 extern crate lazy_static;
 
 #[global_allocator]
@@ -14,6 +16,7 @@ mod token;
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
+    env_logger::init();
     HttpServer::new(|| {
         App::new()
             .route("/ping", web::get().to(ping))
