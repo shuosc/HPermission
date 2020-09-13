@@ -8,6 +8,9 @@ pub async fn ping(_: HttpRequest) -> impl Responder {
 }
 
 pub async fn check(request: HttpRequest) -> impl Responder {
+    for header in request.headers() {
+        println!("{:?}", header);
+    }
     let username = request.headers().get("Authorization")
         .and_then(|it| it.to_str().ok())
         .map(|it| &it["Bearer ".len()..])
