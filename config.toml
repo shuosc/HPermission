@@ -1,0 +1,32 @@
+superuser = "17120238"
+[[urls]]
+prefix = "/api/semester"
+read = { everybody = true } # 对每个人：可读
+write = { superuser = true } # 对管理员：可写
+[[urls]]
+prefix = "/api/course"
+read = { authed = true } # 对所有合法登录用户可读
+write = { superuser = true }
+[[urls]]
+prefix = "/api/student"
+[urls.write.authed]
+url_segment = 2 # 将 url 的第2段（从0开始计数）和 header 中的 jwt token 中的 id 比较，相等则允许访问
+[urls.read.authed]
+url_segment = 2
+[[urls]]
+prefix = "/api/course-selection"
+write = { superuser = true }
+[urls.read]
+superuser = true
+[urls.read.authed]
+query = "student_id" #
+[[urls]]
+prefix = "/api/todo"
+[urls.write]
+superuser = true
+[urls.write.authed]
+query = "student_id" # 将 query 中的 student_id 和 header 中的 jwt token 中的 id 比较，相等则允许访问
+[urls.read]
+superuser = true
+[urls.read.authed]
+query = "student_id"

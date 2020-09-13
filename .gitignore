@@ -10,5 +10,6 @@ Cargo.lock
 **/*.rs.bk
 
 .idea
-./data
+/data/
 logfile
+.DS_Store
