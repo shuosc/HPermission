@@ -46,7 +46,7 @@ write = { superuser = true }
 [urls.read]
 superuser = true
 [urls.read.authed]
-query = "student_id" # 
+query = "student_id" # if the student_id field in query equals to the id in jwt token in header, the user can write 
 [[urls]]
 prefix = "/api/todo"
 [urls.write]

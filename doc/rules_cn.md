@@ -46,7 +46,7 @@ write = { superuser = true }
 [urls.read]
 superuser = true
 [urls.read.authed]
-query = "student_id" # 
+query = "student_id" # 将 query 中的 student_id 和 header 中的 jwt token 中的 id 比较，相等则允许访问 
 [[urls]]
 prefix = "/api/todo"
 [urls.write]
