@@ -6,9 +6,9 @@ extern crate lazy_static;
 #[global_allocator]
 static ALLOC: snmalloc_rs::SnMalloc = snmalloc_rs::SnMalloc;
 
-use actix_web::{HttpServer, App, web};
-use crate::handler::{ping, check};
 use crate::config::CONFIG;
+use crate::handler::{check, ping};
+use actix_web::{web, App, HttpServer};
 
 mod config;
 mod handler;
@@ -21,5 +21,8 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .route("/ping", web::get().to(ping))
             .default_service(web::route().to(check))
-    }).bind("0.0.0.0:80")?.run().await
+    })
+    .bind("0.0.0.0:80")?
+    .run()
+    .await
 }

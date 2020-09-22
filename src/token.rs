@@ -1,5 +1,5 @@
-use jsonwebtoken::{DecodingKey, Validation, decode};
-use serde::{Serialize, Deserialize};
+use jsonwebtoken::{decode, DecodingKey, Validation};
+use serde::{Deserialize, Serialize};
 
 lazy_static! {
     static ref DECODING_KEY: DecodingKey<'static> = DecodingKey::from_secret(
@@ -10,7 +10,7 @@ lazy_static! {
 
 #[derive(Debug, Serialize, Deserialize)]
 struct Claims {
-    sub: String
+    sub: String,
 }
 
 pub fn get_username(token: &str) -> Option<String> {
