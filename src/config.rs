@@ -56,6 +56,7 @@ pub struct CheckerGroup {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct URLConfig {
     prefix: String,
+    redirect_location: Option<String>,
     read: CheckerGroup,
     write: CheckerGroup,
 }
@@ -73,17 +74,20 @@ impl Config {
         path: &str,
         query_str: &str,
         write: bool,
-    ) -> bool {
+    ) -> (bool, Option<&String>) {
         for config in &self.urls {
             if path.starts_with(&config.prefix) {
                 let check_group = if write { &config.write } else { &config.read };
-                return check_group.everybody.check(username, path, query_str)
-                    || check_group.authed.check(username, path, query_str)
-                    || (username.map(|it| it == &self.superuser).unwrap_or(false)
-                        && check_group.superuser.check(username, path, query_str));
+                return (
+                    check_group.everybody.check(username, path, query_str)
+                        || check_group.authed.check(username, path, query_str)
+                        || (username.map(|it| it == &self.superuser).unwrap_or(false)
+                            && check_group.superuser.check(username, path, query_str)),
+                    config.redirect_location.as_ref(),
+                );
             }
         }
-        false
+        (false, None)
     }
 }
 

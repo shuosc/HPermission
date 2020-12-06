@@ -48,10 +48,10 @@ pub async fn check(request: HttpRequest) -> impl Responder {
             _ => return HttpResponse::UnprocessableEntity(),
         }
     };
-    let passed = CONFIG
+    let (passed, redirect_location) = CONFIG
         .get(&host)
         .map(|it| it.check(username.as_ref(), path, query, write))
-        .unwrap_or(false);
+        .unwrap_or((false, None));
     if passed {
         info!(
             "Allow {} to {} {}{}",
@@ -69,6 +69,16 @@ pub async fn check(request: HttpRequest) -> impl Responder {
             host,
             path
         );
-        HttpResponse::Unauthorized()
+        if let Some(location) = redirect_location {
+            info!(
+                "Redirecting to {}",
+                location
+            );
+            HttpResponse::SeeOther()
+                .header(actix_web::http::header::LOCATION, location.to_owned())
+                .take()
+        } else {
+            HttpResponse::Unauthorized()
+        }
     }
 }

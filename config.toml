@@ -42,3 +42,9 @@ superuser = "17120238"
 prefix = "/api/semester"
 read = { everybody = true }
 write = { everybody = true }
+
+[['dev.cloud.shuosc.com'.urls]]
+prefix = "/api/xxx"
+redirect_location = "/ping"
+read = { everybody = true } # 对每个人：可读
+write = { superuser = true } # 对管理员：可写
